@@ -1,4 +1,2 @@
-a={1: [2], 2: [1, 3], 6: [5], 5: [6], 3: [2]}
-
-for i in a:
-    print(*a[i])
+start, end = (int(i) for i in input().split(' '))
+print(start, end)
