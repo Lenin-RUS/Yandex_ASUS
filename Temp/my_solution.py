@@ -1,11 +1,19 @@
-v=[6, 9]
-graph={0: [[4, 6], [1, 2]],
-       1: [[0, 2], [5, 7], [2, 5]],
-       2: [[5, 1], [1, 5], [3, 9]],
-       3: [[4, 4], [5, 3], [2, 9]],
-       4: [[0, 6], [5, 8], [3, 4]],
-       5: [[1, 7], [4, 8], [3, 3], [2, 1]]}
+nod, edg = (int(i) for i in input().split(' '))
+e = []
 
-not_added = set(range(v[0]))
+edges_arr = dict()
+nodes_arr = dict()
+
+for i in range(nod):
+    nodes_arr[i]=[]
+
+count = 0
+for i in range(edg):
+    start, end, w = (int(i)-1 for i in input().split(' '))
+    nodes_arr[start].append(count)
+    nodes_arr[end].append(count)
+    edges_arr[count] = [start, end, w+1]
+    edges_arr[count+edg] = [end, start, w+1]
+    count+=1
 
 pass
