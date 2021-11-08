@@ -15,10 +15,10 @@ def heap_create_and_sort(players, heap_size, root_index):
     left_child = (2 * root_index) + 1
     right_child = (2 * root_index) + 2
 
-    if left_child < heap_size and players[left_child] > players[largest]:
+    if left_child < heap_size and players[left_child] < players[largest]:
         largest = left_child
 
-    if right_child < heap_size and players[right_child] > players[largest]:
+    if right_child < heap_size and players[right_child] < players[largest]:
         largest = right_child
 
     if largest != root_index:
@@ -36,13 +36,13 @@ def heapsort(players):
     return players
 
 
-n = int(input())
-players = []
-for j in range(n):
-    a = [inp for inp in input().split(' ')]
-    players.append([-int(a[1]), int(a[2]), a[0]])
+# n = int(input())
+# players = []
+# for j in range(n):
+#     a = [inp for inp in input().split(' ')]
+#     players.append([-int(a[1]), int(a[2]), a[0]])
 
-# players = [['tima', -9, 100], ['tima', -9, 200], ['tima', -9, 100], ['tima', -9, 200], ['tima', -9, 100], ['tima', -9, -2000]]
+players = [['tima', -9, 100], ['tima', -9, 200], ['tima', -9, 100], ['tima', -9, 200], ['tima', -9, 100], ['tima', -9, -2000]]
 players = heapsort(players)
 for player in players:
     print(player[2])

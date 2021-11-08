@@ -1,31 +1,43 @@
 import sys
-
-
 # sys.setrecursionlimit(2000)
 
-def heap_create_and_sort(heap_size, root_index):
-    largest = root_index
-    left_child = (2 * root_index) + 1
-    right_child = (2 * root_index) + 2
-
-    if left_child < heap_size and edges_arr[edges[left_child]][2] < edges_arr[edges[largest]][2]:
-        largest = left_child
-
-    if right_child < heap_size and edges_arr[edges[right_child]][2] < edges_arr[edges[largest]][2]:
-        largest = right_child
-
-    if largest != root_index:
-        edges[root_index], edges[largest] = edges[largest], edges[root_index]
-        heap_create_and_sort(heap_size, largest)
+def edge_add(key):
+    index = len(edges)
+    edges.append(key)
+    sift_up(index)
 
 
-def heapsort():
-    n = len(edges)
-    for i in range(n, -1, -1):  # Тут мы создаем бинарную кучу
-        heap_create_and_sort(n, i)
-    for i in range(n - 1, -1, -1):
-        edges[i], edges[0] = edges[0], edges[i]
-        heap_create_and_sort(i, 0)
+def sift_up(index):
+    if index == 1:
+        return edges
+    else:
+        parent_index = index // 2
+        if edges_arr[edges[parent_index]][2] < edges_arr[edges[index]][2]:
+            edges[parent_index], edges[index] = edges[index], edges[parent_index]
+            sift_up(parent_index)
+
+
+def pop_max():
+    result = edges[1]
+    edges[1] = edges[-1]
+    edges.pop()
+    sift_down(1)
+    return result
+
+
+def sift_down(index):
+    left = 2 * index
+    right = 2 * index + 1
+    if len(edges) <= left:
+        return 1
+    if (right < len(edges)) and (edges_arr[edges[left]][2] < edges_arr[edges[right]][2]):
+        index_largest = right
+    else:
+        index_largest = left
+
+    if edges_arr[edges[index]][2] < edges_arr[edges[index_largest]][2]:
+        edges[index], edges[index_largest] = edges[index_largest], edges[index]
+        sift_down(index_largest)
 
 
 def add_vertex(v):
@@ -33,18 +45,15 @@ def add_vertex(v):
     not_added.discard(v)
     for i in nodes_arr[v]:
         if edges_arr[i][1] in not_added:
-            edges.append(i)
+            edge_add(i)
 
 
 def find_MST():
     v = 0
     final_sum = 0
     add_vertex(v)
-    while not_added and edges:
-        heapsort()
-        e = edges[0]
-        edges[0] = edges.pop()
-
+    while not_added and len(edges)>1:
+        e = pop_max()
         if edges_arr[e][1] in not_added:
             # max_spanning_tree.append(e)
             final_sum += edges_arr[e][2]
@@ -85,7 +94,7 @@ for i in range(edg):
 # max_spanning_tree = []  # Рёбра, составляющие MST.
 added = set()  # Множество вершин, уже добавленных в остов.
 not_added = set(range(nod))  # Множество вершины, ещё не добавленных в остов.
-edges = []  # Массив рёбер, исходящих из остовного дерева.
+edges = [-1]  # Массив рёбер, исходящих из остовного дерева.
 
 if edg == 0 and nod != 1:
     print('Oops! I did it again')
