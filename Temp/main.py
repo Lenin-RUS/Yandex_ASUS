@@ -1,2 +1,2 @@
-path=[[None]*10]*5
-print(path)
+a=[1,2,3,4,5]
+print(sum(a[:1]))
