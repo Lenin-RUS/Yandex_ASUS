@@ -9,11 +9,11 @@ ID 58812451
 5. Ошибка по сути будет накапливаться как-бы по главной диагонали матрицы. Самый крайний нижний элемент и будет эта ошибка. Его и выводим.
 '''
 
-seq_1 = input()
-seq_2 = input()
+seq1 = input()
+seq2 = input()
 
-x = len(seq_1) + 1
-y = len(seq_2) + 1
+x = len(seq1) + 1
+y = len(seq2) + 1
 
 result = [[0 for _ in range(y)] for _ in range(x)]
 
@@ -24,7 +24,7 @@ for j in range(y):
 
 for i in range(1, x):
     for j in range(1, y):
-        if seq_1[i - 1] == seq_2[j - 1]:
+        if seq1[i - 1] == seq2[j - 1]:
             result[i][j] = min(result[i - 1][j] + 1, result[i - 1][j - 1], result[i][j - 1] + 1)
         else:
             result[i][j] = min(result[i - 1][j] + 1, result[i - 1][j - 1] + 1, result[i][j - 1] + 1)

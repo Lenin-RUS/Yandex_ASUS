@@ -18,13 +18,13 @@ arr = [int(i) for i in input().split(' ')]
 k = sum(arr)
 result = 0
 
-if k % 2 == 1:
+if k % 2:
     print("False")
 else:
     arr.sort(reverse=True)
     k = int(k / 2)
-    A = [0 for _ in range(k + 1)]
-    B = [0 for _ in range(k + 1)]
+    A = [0] * (k + 1)
+    B = [0] * (k + 1)
     tmp_sum = 0
     for i in range(1, len(arr) + 1):
         tmp_sum += arr[i - 1]
@@ -40,7 +40,7 @@ else:
                 B[j] = max(A[j], A[j - arr[i - 1]] + arr[i - 1])
             j += 1
 
-    if result == 0:
+    if not result:
         if k % 2 == 0:
             print(A[-1] == k)
         else:
