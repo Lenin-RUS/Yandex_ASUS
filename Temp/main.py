@@ -1,1 +1,2 @@
-print(1 and 3)
+a='abacaabaca'
+print(a[1:].find('a'))
